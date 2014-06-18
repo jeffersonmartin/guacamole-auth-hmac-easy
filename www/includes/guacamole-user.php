@@ -23,15 +23,15 @@
 |                                          |
 ------------------------------------------*/
 
-function guacamole_url($base_url,$conn_id,$hostname,$protocol,$secret) {
+function guacamole_url($base_url,$conn_id,$hostname,$protocol,$secret,$username,$password) {
 
 	/* Define Variables from User Inputs */
 	$guac_base_url 		= $base_url;
 	$guac_conn_id		= $conn_id;
 	$guac_hostname 		= $hostname;
 	$guac_protocol		= $protocol;
-	$guac_username		= 'elabstudent';
-	$guac_password		= 'myeLab!';
+	$guac_username		= $username;
+	$guac_password		= $password;
 	$guac_secret		= $secret;
 
 	/* Set Default Value for Port Number */
@@ -46,7 +46,9 @@ function guacamole_url($base_url,$conn_id,$hostname,$protocol,$secret) {
 	$timestamp = time() * 1000;
 
 	/* Create Signature (Checksum) using Concatenated Variables */
-	$signature_concatenate = $timestamp.$guac_protocol.'hostname'.$guac_hostname.'port'.$guac_port.'username'.$guac_username.'password'.$guac_password;
+	$signature_concatenate = $timestamp.$guac_protocol.'username'.$guac_username.'password'.$guac_password.'hostname'.$guac_hostname.'port'.$guac_port;
+
+	echo $signature_concatenate.'<br /><br />';
 
 	/* Encode Signature (Checksum) using Secret (Salt) */
 	$signature_encode = base64_encode(hash_hmac('sha1', $signature_concatenate, $guac_secret, 1));

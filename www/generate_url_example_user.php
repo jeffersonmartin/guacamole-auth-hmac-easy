@@ -44,7 +44,7 @@
  */
 
 /* Include the guacamole function */
-require('includes/guacamole.php');
+require('includes/guacamole-user.php');
 
 /* Define your Secret Passphrase */
 // $secret_salt = 'MyGu4c4m0l31sT00S4lty';
@@ -72,8 +72,14 @@ $host				= '10.1.1.120';
 /* Specify the Protocol (rdp, vnc, ssh) to use */
 $protocol			= 'rdp';
 
+/* Specify the Username (static defined, for database/LDAP/etc use the database query example below) */
+$username 			= 'johndoe';
+
+/* Specify the Password (static defined, for database/LDAP/etc use the database query example below) */
+$password 			= 'mypass';
+
 /* Call the guacamole_url Function with your Connection Parameters */
-guacamole_url($base_url,$conn_id,$host,$protocol,$secret_salt);
+guacamole_url($base_url,$conn_id,$host,$protocol,$secret_salt,$username,$password);
 
 
 /**
@@ -86,14 +92,16 @@ guacamole_url($base_url,$conn_id,$host,$protocol,$secret_salt);
 //	$base_url		= 'http://rdp.mycompany.com:8080/guacamole/client.xhtml';
 //	$conn_id		= $_POST['conn_id'];
 //	
-//	$sql_query = mysql_query("SELECT conn_id,host,protocol FROM rdp_connections WHERE conn_id='$conn_id'") or die(mysql_error());
+//	$sql_query = mysql_query("SELECT conn_id,host,protocol,username,password FROM rdp_connections WHERE conn_id='$conn_id'") or die(mysql_error());
 //	$sql_query_fa = mysql_fetch_assoc($sql_query);
 //	
 //	$conn_id 		= $sql_query_fa['conn_id'];
 //	$host 			= $sql_query_fa['host'];
 //	$protocol 		= $sql_query_fa['protocol'];
+//	$username 		= $sql_query_fa['username'];
+//	$password 		= $sql_query_fa['password'];
 //	
-//	guacamole_url($base_url,$conn_id,$host,$protocol,$secret_salt);
+//	guacamole_url($base_url,$conn_id,$host,$protocol,$secret_salt,$username,$password);
 //
 
 ?>
